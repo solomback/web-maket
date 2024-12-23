@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css" class="css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        /* Loader Styles */
+        .loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 5px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 5px solid #03608f;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            display: none; /* Hidden by default */
+        }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader" id="loader"></div>
+
+    <div class="side-bar">
+        <div class="nav-section">
+            <div class="header">
+                <div class="brand">
+                    <div class="logo">
+                        <img src="images/asterisk.png" alt="logo-star">
+                    </div>
+                    <h2>Вариант 12</h2>
+                </div>
+                <div class="input-base">
+                    <input type="search" placeholder="Поиск" id="search-input">
+                </div>
+            </div>
+            <div class="navigation">
+                <div class="nav-content">
+                    <div class="navcontent">
+                            <span>Все проекты</span>
+                    </div>
+                    <div class="nav-items-button">
+                        <a href="#" class="nav-link" data-project="blue">Синий проект</a>
+                        <a href="#" class="nav-link" data-project="green">Зелёный проект</a>
+                        <a href="#" class="nav-link" data-project="red">Красный проект</a>
+                        <a href="#" class="nav-link" data-project="pink">Розовый проект</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p class="footer2">&copy; © Вариант 12. 
+                Халафалла Еслам махди, группа ПИ-22-2
+            </p>
+        </div>
+    </div>
+    <div class="content">
+        <div class="nav-header">
+            <div class="nav-title">
+                <h2>Все проекты</h2>
+            </div>
+            <div class="custom-select" style="width:200px;">
+                <select id="filter-select">
+                    <option value="default">По умолчанию</option>
+                    <option value="earlier">Истекают раньше</option>
+                    <option value="later">Истекают позже</option>
+                </select>
+            </div>
+        </div>
+        <div class="content-info" id="project-list">
+            <!-- Dynamic content will load here -->
+            <div class="card-info">
+                <div class="color-info-red"></div>
+                <div class="title-info">
+                    <h2>Название первой задачи</h2>
+                    
+                    <div class="info-pro">
+                        <h3>Описание задачи</h3>
+                        <p>Истекает:16 июля 2023 года <p>
+                        <p>Ответственный:Островский Константин</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-info">
+                <div class="color-info-green"></div>
+                <div class="title-info">
+                    <h2>Название первой задачи</h2>
+                    
+                    <div class="info-pro">
+                        <h3>Описание задачи</h3>
+                        <p>Истекает:16 июля 2023 года <p>
+                        <p>Ответственный:Островский Константин</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-info">
+                <div class="color-info-sky-blue"></div>
+                <div class="title-info">
+                    <h2>Название первой задачи</h2>
+                    
+                    <div class="info-pro">
+                        <h3>Описание задачи</h3>
+                        <p>Истекает:16 июля 2023 года <p>
+                        <p>Ответственный:Островский Константин</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-info">
+                <div class="color-info-gold"></div>
+                <div class="title-info">
+                    <h2>Название первой задачи</h2>
+                    
+                    <div class="info-pro">
+                        <h3>Описание задачи</h3>
+                        <p>Истекает:16 июля 2023 года <p>
+                        <p>Ответственный:Островский Константин</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        const loader = document.getElementById('loader');
+        const filterSelect = document.getElementById('filter-select');
+        const projectList = document.getElementById('project-list');
+
+        // Simulated projects data
+        const projects = [
+            { id: 1, name: 'Название первой задачи', deadline: '2023-07-16', color: 'green', responsible: 'Konstantin Ostrovskiy' },
+            { id: 2, name: 'Название второй задачи', deadline: '2023-08-01', color: 'gold', responsible: 'Anna Ivanova' },
+            { id: 3, name: 'Название третий задачи', deadline: '2023-06-10', color: 'red', responsible: 'Nikolai Petrov' },
+            { id: 4, name: 'Название четвертый задачи', deadline: '2023-09-15', color: 'sky-blue', responsible: 'Elena Fedorova' },
+        ];
+
+        // Function to render projects
+        const renderProjects = (data) => {
+            projectList.innerHTML = '';
+            data.forEach((project) => {
+                const card = document.createElement('div');
+                card.classList.add('card-info');
+                card.innerHTML = `
+                    <div class="color-info-${project.color}"></div>
+                    <div class="title-info">
+                        <h2>${project.name}</h2>
+                        <div class="info-pro">
+                            <h3>Описание задачи</h3>
+                            <p>Истекает: ${project.deadline}</p>
+                            <p>Ответственный: ${project.responsible}</p>
+                        </div>
+                    </div>
+                `;
+                projectList.appendChild(card);
+            });
+        };
+
+        // Function to sort projects
+        const sortProjects = (type) => {
+            loader.style.display = 'block';
+            setTimeout(() => {
+                let sortedProjects = [...projects];
+                if (type === 'earlier') {
+                    sortedProjects.sort((a, b) => new Date(a.deadline) - new Date(b.deadline));
+                } else if (type === 'later') {
+                    sortedProjects.sort((a, b) => new Date(b.deadline) - new Date(a.deadline));
+                }
+                renderProjects(sortedProjects);
+                loader.style.display = 'none';
+            }, 500);
+        };
+
+        // Filter change event
+        filterSelect.addEventListener('change', (e) => {
+            const filterValue = e.target.value;
+            if (filterValue === 'default') {
+                renderProjects(projects);
+            } else {
+                sortProjects(filterValue);
+            }
+        });
+
+        // Initial render
+        renderProjects(projects);
+    </script>
+</body>
+</html>
+
+
+
+
+
